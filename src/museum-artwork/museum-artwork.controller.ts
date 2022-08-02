@@ -31,6 +31,7 @@ export class MuseumArtworkController {
     }
     
     @Delete(':museumId/artworks/:artworkId')
+    @HttpCode(204)
     async deleteArtworkMuseum(@Param('museumId') museumId: string, @Param('artworkId') artworkId: string){
         return await this.museumArtworkService.deleteArtworkMuseum(museumId, artworkId);
     }
