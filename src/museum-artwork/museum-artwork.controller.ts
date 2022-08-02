@@ -17,21 +17,21 @@ export class MuseumArtworkController {
 
     @Get(':museumId/artworks/:artworkId')
     async findArtworkByMuseumIdArtworkId(@Param('museumId') museumId: string, @Param('artworkId') artworkId: string){
-        return await this.findArtworkByMuseumIdArtworkId(museumId, artworkId);
+        return await this.museumArtworkService.findArtworkByMuseumIdArtworkId(museumId, artworkId);
     }
 
     @Get(':museumId/artworks')
     async findArtworksByMuseumId(@Param('museumId') museumId: string){
-        return await this.findArtworksByMuseumId(museumId);
+        return await this.museumArtworkService.findArtworksByMuseumId(museumId);
     }
 
     @Put(':museumId/artworks')
     async associateArtworksMuseum(@Body() artworksDto: ArtworkDto[], @Param('museumId') museumId: string){
-        return await this.associateArtworksMuseum(artworksDto, museumId);
+        return await this.museumArtworkService.associateArtworksMuseum(museumId, artworksDto);
     }
     
     @Delete(':museumId/artworks/:artworkId')
     async deleteArtworkMuseum(@Param('museumId') museumId: string, @Param('artworkId') artworkId: string){
-        return await this.deleteArtworkMuseum(museumId, artworkId);
+        return await this.museumArtworkService.deleteArtworkMuseum(museumId, artworkId);
     }
 }
