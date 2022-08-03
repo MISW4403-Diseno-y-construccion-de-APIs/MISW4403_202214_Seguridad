@@ -103,9 +103,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var data = pm.response.json()",
-							"",
 							"pm.test('Number of museums > ' + 0, function () {",
+							"    var data = pm.response.json()",
 							"    pm.expect(data.length).to.greaterThan(0)",
 							"});",
 							"",
@@ -166,8 +165,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var data = pm.response.json()",
-							"",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});"
@@ -226,14 +223,12 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var data = pm.response.json()",
-							"",
 							"pm.test(\"Status code is 404\", function () {",
 							"    pm.response.to.have.status(404);",
 							"});",
 							"",
 							"pm.test(\"Get expected error message\", function () {",
-							"    var jsonData = pm.response.json();",
+							"    var data = pm.response.json();",
 							"    pm.expect(data.message).to.eql(\"The museum with the given id was not found\");",
 							"});"
 						],
@@ -292,8 +287,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var data = pm.response.json()",
-							"",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});"
@@ -369,14 +362,12 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var data = pm.response.json()",
-							"",
 							"pm.test(\"Status code is 404\", function () {",
 							"    pm.response.to.have.status(404);",
 							"});",
 							"",
 							"pm.test(\"Get expected error message\", function () {",
-							"    var jsonData = pm.response.json();",
+							"    var data = pm.response.json();",
 							"    pm.expect(data.message).to.eql(\"The museum with the given id was not found\");",
 							"});"
 						],
@@ -504,14 +495,12 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var data = pm.response.json()",
-							"",
 							"pm.test(\"Status code is 404\", function () {",
 							"    pm.response.to.have.status(404);",
 							"});",
 							"",
 							"pm.test(\"Get expected error message\", function () {",
-							"    var jsonData = pm.response.json();",
+							"    var data = pm.response.json();",
 							"    pm.expect(data.message).to.eql(\"The museum with the given id was not found\");",
 							"});"
 						],
