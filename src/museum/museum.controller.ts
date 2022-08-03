@@ -1,7 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseInterceptors } from '@nestjs/common';
+import { plainToInstance } from 'class-transformer';
 import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors.interceptor';
 import { MuseumDto } from './museum.dto';
+import { MuseumEntity } from './museum.entity';
 import { MuseumService } from './museum.service';
 
 @Controller('museums')
@@ -22,12 +24,14 @@ export class MuseumController {
   @Post()
   @HttpCode(201)
   async create(@Body() museumDto: MuseumDto) {
-    return await this.museumService.create(museumDto);
+    const museum: MuseumEntity = plainToInstance(MuseumEntity, museumDto);
+    return await this.museumService.create(museum);
   }
 
   @Put(':museumId')
   async update(@Param('museumId') museumId: string, @Body() museumDto: MuseumDto) {
-    return await this.museumService.update(museumId, museumDto);
+    const museum: MuseumEntity = plainToInstance(MuseumEntity, museumDto);
+    return await this.museumService.update(museumId, museum);
   }
 
   @Delete(':museumId')

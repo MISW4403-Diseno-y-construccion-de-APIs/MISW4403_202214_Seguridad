@@ -1,7 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseInterceptors } from '@nestjs/common';
+import { plainToClass, plainToInstance } from 'class-transformer';
 import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors.interceptor';
 import { ArtworkDto } from './artwork.dto';
+import { ArtworkEntity } from './artwork.entity';
 import { ArtworkService } from './artwork.service';
 
 @Controller('artworks')
@@ -22,12 +24,14 @@ export class ArtworkController {
   @Post()
   @HttpCode(201)
   async create(@Body() artworkDto: ArtworkDto) {
-    return await this.artworkService.create(artworkDto);
+    const artwork = plainToInstance(ArtworkEntity, artworkDto);
+    return await this.artworkService.create(artwork);
   }
 
   @Put(':artworkId')
   async update(@Param('artworkId') artworkId: string, @Body() artworkDto: ArtworkDto) {
-    return await this.artworkService.update(artworkId, artworkDto);
+    const artwork = plainToInstance(ArtworkEntity, artworkDto);
+    return await this.artworkService.update(artworkId, artwork);
   }
 
   @Delete(':artworkId')

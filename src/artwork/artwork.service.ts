@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
 import { Repository } from 'typeorm';
 import { ArtworkEntity } from './artwork.entity';
-import { ArtworkDto } from './artwork.dto';
 
 @Injectable()
 export class ArtworkService {
@@ -25,27 +24,16 @@ export class ArtworkService {
         return artwork;
     }
     
-    async create(artworkDto: ArtworkDto): Promise<ArtworkEntity> {
-        const artwork: ArtworkEntity = new ArtworkEntity();
-        artwork.name = artworkDto.name;
-        artwork.description = artworkDto.description;
-        artwork.mainImage = artworkDto.mainImage;
-        artwork.type = artworkDto.type;
-        artwork.year = artworkDto.year;
-        
+    async create(artwork: ArtworkEntity): Promise<ArtworkEntity> {
         return await this.artworkRepository.save(artwork);
     }
 
-    async update(id: string, artworkDto: ArtworkDto): Promise<ArtworkEntity> {
-        const artwork: ArtworkEntity = await this.artworkRepository.findOne({where:{id}});
-        if (!artwork)
+    async update(id: string, artwork: ArtworkEntity): Promise<ArtworkEntity> {
+        const persistedArtwork: ArtworkEntity = await this.artworkRepository.findOne({where:{id}});
+        if (!persistedArtwork)
           throw new BusinessLogicException("The artwork with the given id was not found", BusinessError.NOT_FOUND);
-       
-          artwork.name = artworkDto.name;
-          artwork.description = artworkDto.description;
-          artwork.mainImage = artworkDto.mainImage;
-          artwork.type = artworkDto.type;
-          artwork.year = artworkDto.year;
+        
+        artwork.id = id;
      
         return await this.artworkRepository.save(artwork);
     }

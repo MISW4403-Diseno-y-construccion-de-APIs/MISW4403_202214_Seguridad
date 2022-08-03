@@ -1,5 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseInterceptors } from '@nestjs/common';
+import { plainToInstance } from 'class-transformer';
+import { ArtworkEntity } from 'src/artwork/artwork.entity';
 import { ArtworkDto } from '../artwork/artwork.dto';
 import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors.interceptor';
 import { MuseumArtworkService } from './museum-artwork.service';
@@ -27,7 +29,8 @@ export class MuseumArtworkController {
 
     @Put(':museumId/artworks')
     async associateArtworksMuseum(@Body() artworksDto: ArtworkDto[], @Param('museumId') museumId: string){
-        return await this.museumArtworkService.associateArtworksMuseum(museumId, artworksDto);
+        const artworks = plainToInstance(ArtworkEntity, artworksDto)
+        return await this.museumArtworkService.associateArtworksMuseum(museumId, artworks);
     }
     
     @Delete(':museumId/artworks/:artworkId')
