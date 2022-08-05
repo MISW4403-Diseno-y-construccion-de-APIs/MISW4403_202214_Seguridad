@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseInterceptors } from '@nestjs/common';
-import { plainToClass, plainToInstance } from 'class-transformer';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
+import { plainToInstance } from 'class-transformer';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors.interceptor';
 import { ArtworkDto } from './artwork.dto';
 import { ArtworkEntity } from './artwork.entity';
@@ -16,11 +17,13 @@ export class ArtworkController {
     return await this.artworkService.findAll();
   }
 
+  
   @Get(':artworkId') 
   async findOne(@Param('artworkId') artworkId: string) {
     return await this.artworkService.findOne(artworkId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @HttpCode(201)
   async create(@Body() artworkDto: ArtworkDto) {

@@ -18,6 +18,8 @@ import { MovementEntity } from './movement/movement.entity';
 import { MuseumEntity } from './museum/museum.entity';
 import { SponsorEntity } from './sponsor/sponsor.entity';
 import { MuseumArtworkModule } from './museum-artwork/museum-artwork.module';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [MuseumModule, ExhibitionModule, ArtworkModule, SponsorModule, ImageModule, ArtistModule, MovementModule,
@@ -34,6 +36,8 @@ import { MuseumArtworkModule } from './museum-artwork/museum-artwork.module';
       keepConnectionAlive: true
     }),
     MuseumArtworkModule,
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
