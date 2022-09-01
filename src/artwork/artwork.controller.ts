@@ -16,7 +16,6 @@ export class ArtworkController {
   async findAll() {
     return await this.artworkService.findAll();
   }
-
   
   @Get(':artworkId') 
   async findOne(@Param('artworkId') artworkId: string) {
@@ -25,7 +24,6 @@ export class ArtworkController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  @HttpCode(201)
   async create(@Body() artworkDto: ArtworkDto) {
     const artwork = plainToInstance(ArtworkEntity, artworkDto);
     return await this.artworkService.create(artwork);
